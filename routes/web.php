@@ -12,6 +12,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/videos', 'VideoController@index')->name('video');
 
 Route::get('/images/{path}/{attachment}', function($path, $attachment) {
 	$file = sprintf('storage/%s/%s', $path, $attachment);
