@@ -4,7 +4,7 @@
 
 <div class="container" id="app">
         
-        <h1>Dragon92</h1>
+        <h1>Introduccion al Curso</h1>
         <div class="row">
             <div class="col-md-8">
                 <div class="embed-responsive embed-responsive-16by9">
