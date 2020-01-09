@@ -3,8 +3,9 @@
 @section('content')
 
 <div class="container" id="app">
-        
-        <h1>Introduccion al Curso</h1>
+  <video-component></video-component>
+  <a href="{{ route('video.create') }}" >CREAR</a> 
+        {{-- <h1>Introduccion al Curso</h1>
         <div class="row">
             <div class="col-md-8">
                 <div class="embed-responsive embed-responsive-16by9">
@@ -12,7 +13,7 @@
                        
                         <source src="storage/videos/Amigos.mp4" type='video/mp4'>
                     </video> -->
-                    <video class="img-responsive" src="storage/videos/Amigos.mp4" loop controls/>
+                    <video class="img-responsive" src="storage/videos/video1.mp4" loop controls/>
                 </div>
                 
             <div>
@@ -89,8 +90,8 @@
                         </a>
                     </div>
               </div>
-            </div>
+            </div> --}}
             
-    </div>
+</div>
 
 @endsection

@@ -81,3 +81,5 @@ Route::group(['prefix' => "admin", "middleware" => ['auth', sprintf("role:%s", \
 	Route::get('/teachers', 'AdminController@teachers')->name('admin.teachers');
 	Route::get('/teachers_json', 'AdminController@teachersJson')->name('admin.teachers_json');
 });
+
+Route::resource('/lecciones/video','leccionesController');
