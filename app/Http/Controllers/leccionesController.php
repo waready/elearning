@@ -87,7 +87,9 @@ class leccionesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lecciones = leccione::find($id);
+        //return $lecciones;
+        return view('videoUpdate', compact('lecciones'));
     }
 
     /**
@@ -97,9 +99,14 @@ class leccionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+         return "hellow ";
+        
+    
+    }
+    public function nada(){
+        return "hola";
     }
 
     /**
@@ -110,6 +117,8 @@ class leccionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lecciones = leccione::find($id);
+        $lecciones->delete();
+        
     }
 }

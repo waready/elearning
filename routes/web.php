@@ -12,9 +12,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-
-
 Route::get('/videos', 'VideoController@index')->name('video');
+
+
 
 Route::get('/images/{path}/{attachment}', function($path, $attachment) {
 	$file = sprintf('storage/%s/%s', $path, $attachment);
@@ -83,3 +83,4 @@ Route::group(['prefix' => "admin", "middleware" => ['auth', sprintf("role:%s", \
 });
 
 Route::resource('/lecciones/video','leccionesController');
+Route::put('nada', 'leccionesController@nada')->name("nada");

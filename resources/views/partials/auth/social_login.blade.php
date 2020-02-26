@@ -8,6 +8,7 @@
             >
                 {{ __("Github") }} <i class="fa fa-github"></i>
             </a>
+            
             <a
                     href="{{ route('social_auth', ['driver' => 'facebook']) }}"
                     class="btn btn-facebook btn-lg btn-block"

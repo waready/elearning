@@ -22,6 +22,8 @@ window.Vue = require('vue');
 
 Vue.component('VideoComponent', require('./components/VideoComponent.vue').default);
 Vue.component('videosComponent', require('./components/videosComponent.vue').default);
+Vue.component('VideosCursoComponent', require('./components/VideosCursoComponent.vue').default);
+Vue.component('editComponent', require('./components/editComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,6 +34,6 @@ Vue.component('videosComponent', require('./components/videosComponent.vue').def
 const app = new Vue({
     el: '#app',
     mounted() {
-        console.log('como estas perra')
+        console.log('como estas gato')
     }
 });
