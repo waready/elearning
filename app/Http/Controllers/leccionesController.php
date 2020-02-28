@@ -126,7 +126,8 @@ class leccionesController extends Controller
 
             $video=leccione::findOrFail($id);
 
-            Storage::delete('public/'.$video->video);
+            // Storage::delete('public/'.$video->video); //primera forma esto es con storage facade pero no funciona
+            unlink(storage_path('app/public/'.$video->video)); // esta si funciona
 
             $datosVideo['video']=$request->file('video')->store('videos','public');//guarda en la ruta carpeta storage/app/public/videos
         }
