@@ -3,15 +3,15 @@
 @section('content')
 
 <div class="container">
+    @if(Session::has('Mensaje'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('Mensaje') }}
+            </div>
+    @endif
     <div class="row">
             <h2 class="col-md-8">Videos del curso 
                 ...
             </h2>
-
-            @if(Session::has('Mensaje')){{ 
-                Session::get('Mensaje')
-            }}
-            @endif
 
             <div class="col-md-4">
                 <a
@@ -22,7 +22,8 @@
                 </a> 
             </div>
     </div>
-    <table class="table mt-2">
+    
+    <table class="table mt-2 table-hover">
 
         <thead class="thead-dark">
             <tr>
@@ -49,14 +50,21 @@
                 </video>
                 </td>
                 <td>
-                <a href="{{url('/videos/'.$video->id.'/edit')}}">
+                <a 
+                    href="{{url('/videos/'.$video->id.'/edit')}}"
+                    class="btn btn-primary"
+                    >
                     Editar
                 </a>
-                |
-                <form action="{{url('/videos/'.$video->id)}}" method="post">
+                <form action="{{url('/videos/'.$video->id)}}" method="post" style="display:inline">
                 {{csrf_field()}}
                 {{ method_field('DELETE') }}
-                <button type="submit" onclick="return confirm('Deseas borrar este video?');">Borrar</button>
+                <button 
+                    type="submit"
+                    onclick="return confirm('Deseas borrar este video?');"
+                    class="btn btn-danger"
+                >Borrar
+                </button>
                 </form>
 
                 </td>
@@ -65,5 +73,6 @@
         </tbody>
 
     </table>
+    {{ $videos->links() }}
 </div>
 @endsection

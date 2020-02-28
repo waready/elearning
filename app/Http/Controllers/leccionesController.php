@@ -18,7 +18,7 @@ class leccionesController extends Controller
         // $id = 1;
         //  $Leccion = leccione::where('course_id', $id)->get()->load('course');
         //  return  $Leccion;
-            $datos['videos']=leccione::paginate(20);
+            $datos['videos']=leccione::paginate(5);
             return view('administrar-videos.index',$datos);  
     }
 
@@ -41,6 +41,16 @@ class leccionesController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $validatedData = [
+            'Name' => 'required|string|max:150',
+            'Cotenido' => 'required|string|max:150',
+            'Video' => 'required|string|max:150',
+            'Curso' => 'required'
+        ];
+        $Mensaje = ["required"=>'El :attribute es requerido'];
+        $this->validate($request,$validatedData,$Mensaje);
+
         $datosVideo=request()->all();
         $datosVideo=request()->except('_token');
 
@@ -50,7 +60,7 @@ class leccionesController extends Controller
 
         leccione::insert($datosVideo);
         // return response()->json($datosVideo);
-        return redirect('videos')->with('Mensaje','Video agregado con exito');
+        return redirect('videos/administrar')->with('Mensaje','Video agregado con exito');
 
 
         // $lecciones = new leccione();
@@ -138,7 +148,7 @@ class leccionesController extends Controller
         // $video=leccione::findOrFail($id);//con estas dos lineas se observa como quedo despues del update
         // return redirect('administrar-videos.edit',compact('video'))->with('MensajeEdit','Video modificado con exito');
 
-        return redirect('videos')->with('Mensaje','Video modificado con exito');
+        return redirect('videos/administrar')->with('Mensaje','Video modificado con exito');
     }
     public function nada(){
         return "hola";
@@ -160,7 +170,7 @@ class leccionesController extends Controller
         if(unlink(storage_path('app/public/'.$video->video))){
             leccione::destroy($id);
         }
-        return redirect('videos')->with('Mensaje','Video eliminado');
+        return redirect('videos/administrar')->with('Mensaje','Video eliminado');
         
     }
 }
