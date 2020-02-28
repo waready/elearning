@@ -49,7 +49,8 @@ class leccionesController extends Controller
         }
 
         leccione::insert($datosVideo);
-        return response()->json($datosVideo);
+        // return response()->json($datosVideo);
+        return redirect('videos')->with('Mensaje','Video agregado con exito');
 
 
         // $lecciones = new leccione();
@@ -126,16 +127,18 @@ class leccionesController extends Controller
 
             $video=leccione::findOrFail($id);
 
-            // Storage::delete('public/'.$video->video); //primera forma esto es con storage facade pero no funciona
+            // Storage::delete('public/'.$video->video); //primera forma para eliminar, esto es con storage facade pero no funciona
             unlink(storage_path('app/public/'.$video->video)); // esta si funciona
 
             $datosVideo['video']=$request->file('video')->store('videos','public');//guarda en la ruta carpeta storage/app/public/videos
         }
 
-        leccione::where('id','=',$id)->update($datosVideo);
+        leccione::where('id','=',$id)-> update($datosVideo);
 
-        $video=leccione::findOrFail($id);//con estas dos lineas se observa como quedo despues del update
-        return view('administrar-videos.edit',compact('video'));
+        // $video=leccione::findOrFail($id);//con estas dos lineas se observa como quedo despues del update
+        // return redirect('administrar-videos.edit',compact('video'))->with('MensajeEdit','Video modificado con exito');
+
+        return redirect('videos')->with('Mensaje','Video modificado con exito');
     }
     public function nada(){
         return "hola";
@@ -151,8 +154,13 @@ class leccionesController extends Controller
     {
         // $lecciones = leccione::find($id);
         // $lecciones->delete();
-        leccione::destroy($id);
-        return redirect('videos');
+
+        $video=leccione::findOrFail($id);
+
+        if(unlink(storage_path('app/public/'.$video->video))){
+            leccione::destroy($id);
+        }
+        return redirect('videos')->with('Mensaje','Video eliminado');
         
     }
 }

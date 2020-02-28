@@ -1,11 +1,21 @@
+@extends('layouts.app')
+
+@section('content')
+
 <div class="container">
     <div class="row">
             <h2 class="col-md-8">Videos del curso 
                 ...
             </h2>
+
+            @if(Session::has('Mensaje')){{ 
+                Session::get('Mensaje')
+            }}
+            @endif
+
             <div class="col-md-4">
                 <a
-                href="../lecciones/video/create"
+                href="{{url('videos/create')}}"
                 class="btn btn-success btn-lg "
                 >
                 Subir Nuevo Video&nbsp;<i class="fa fa-upload"></i>
@@ -56,3 +66,4 @@
 
     </table>
 </div>
+@endsection
