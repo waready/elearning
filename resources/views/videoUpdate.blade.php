@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Editar video  {{$lecciones}}</h1>
+    <h1>Editar video  </h1>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -33,7 +33,7 @@
                         <div class="form-group row">
                             <label for="video" class="col-md-4 col-form-label text-md-right">Video</label>
 
-                            prewiev {{$lecciones->video}}
+                            
                             <div class="col-md-6">
                                 <div class="custom-file">
                                     <input type="file" class="form-control" name="file">
@@ -54,10 +54,16 @@
                                     </select>
                             </div>
                         </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group row">
+                            <div class="col-md-4 offset-md-1">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Guardar Cambios') }}
+                                </button>
+                            </div>
+                        
+                            <div class="col-md-4 offset-md-3">
+                                <button type="submit" class="btn btn-danger">
+                                    {{ __('Cancelar') }}
                                 </button>
                             </div>
                         </div>

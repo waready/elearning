@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\leccione;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;//esto para poder borrar informacion del storage
 
 class leccionesController extends Controller
 {
@@ -12,10 +13,13 @@ class leccionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   $id = 1;
-        $Leccion = leccione::where('course_id', $id)->get()->load('course');
-        return  $Leccion;   
+    public function index(){
+        // esto codigo comentado carga el api rest
+        // $id = 1;
+        //  $Leccion = leccione::where('course_id', $id)->get()->load('course');
+        //  return  $Leccion;
+            $datos['videos']=leccione::paginate(20);
+            return view('administrar-videos.index',$datos);  
     }
 
     /**
@@ -25,7 +29,8 @@ class leccionesController extends Controller
      */
     public function create()
     {
-        return view('videoCreate');
+        return view('administrar-videos.create');
+        // return view('videoCreate');
     }
 
     /**
@@ -36,22 +41,33 @@ class leccionesController extends Controller
      */
     public function store(Request $request)
     {
-        $lecciones = new leccione();
-           $lecciones->name = $request->name;
-           $lecciones->conten = $request->conten;
-           $lecciones->course_id = $request->course_id;           
+        $datosVideo=request()->all();
+        $datosVideo=request()->except('_token');
 
-           $file = $request->file;
-            //return $file;
-           if ($file){
-              $path = public_path('/storage/videos');
-              $fileName = time().'.'.$file->getClientOriginalExtension();
-              $moved = $file -> move($path, $fileName);
-              $lecciones->video = $fileName;
+        if($request->hasFile('video')){
+            $datosVideo['video']=$request->file('video')->store('videos','public');//guarda en la ruta carpeta storage/app/public/videos
+        }
+
+        leccione::insert($datosVideo);
+        return response()->json($datosVideo);
+
+
+        // $lecciones = new leccione();
+    //        $lecciones->name = $request->name;
+    //        $lecciones->conten = $request->conten;
+    //        $lecciones->course_id = $request->course_id;           
+
+    //        $file = $request->file;
+    //         //return $file;
+    //        if ($file){
+    //           $path = public_path('/storage/videos');
+    //           $fileName = time().'.'.$file->getClientOriginalExtension();
+    //           $moved = $file -> move($path, $fileName);
+    //           $lecciones->video = $fileName;
               
-           }
-           $lecciones->save();
-           return redirect('videos'); 
+    //        }
+    //        $lecciones->save();
+    //        return redirect('videos'); 
  
 
 
@@ -63,9 +79,9 @@ class leccionesController extends Controller
     //             'imagen' => $imagen_name
     //         );
  
-       //return "archivo guardado";
+    //    return "archivo guardado";
 
-       // return $request;
+    //    return $request;
     }
 
     /**
@@ -87,9 +103,11 @@ class leccionesController extends Controller
      */
     public function edit($id)
     {
-        $lecciones = leccione::find($id);
-        //return $lecciones;
-        return view('videoUpdate', compact('lecciones'));
+        // $lecciones = leccione::find($id);
+        // return $lecciones;
+        // return view('videoUpdate', compact('lecciones'));
+        $video=leccione::findOrFail($id);
+        return view('administrar-videos.edit',compact('video'));
     }
 
     /**
@@ -99,11 +117,24 @@ class leccionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-         return "hellow ";
-        
-    
+        //  return "hellow ";
+        $datosVideo=request()->except(['_token','_method']);
+
+        if($request->hasFile('video')){
+
+            $video=leccione::findOrFail($id);
+
+            Storage::delete('public/'.$video->video);
+
+            $datosVideo['video']=$request->file('video')->store('videos','public');//guarda en la ruta carpeta storage/app/public/videos
+        }
+
+        leccione::where('id','=',$id)->update($datosVideo);
+
+        $video=leccione::findOrFail($id);//con estas dos lineas se observa como quedo despues del update
+        return view('administrar-videos.edit',compact('video'));
     }
     public function nada(){
         return "hola";
@@ -117,8 +148,10 @@ class leccionesController extends Controller
      */
     public function destroy($id)
     {
-        $lecciones = leccione::find($id);
-        $lecciones->delete();
+        // $lecciones = leccione::find($id);
+        // $lecciones->delete();
+        leccione::destroy($id);
+        return redirect('videos');
         
     }
 }
