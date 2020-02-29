@@ -14,9 +14,7 @@
 
                     <div class="form-group">
                         <label for="conten" class="control-label">{{'Contenido'}}</label>
-                        <textarea name="conten" id="conten" type="text"  class="form-control"                        >
-                            {{ isset($video->conten) ? $video->conten : ''}}
-                        </textarea>
+                        <textarea name="conten" id="conten" type="text"  class="form-control">{{ isset($video->conten) ? $video->conten : ''}}</textarea>
                     </div>
 
                     <div class="form-group">
