@@ -55,6 +55,7 @@
                     class="btn btn-primary"
                     >
                     Editar
+                    <i class="fa fa-edit"></i>
                 </a>
                 <form action="{{url('/videos/'.$video->id)}}" method="post" style="display:inline">
                 {{csrf_field()}}
@@ -63,7 +64,8 @@
                     type="submit"
                     onclick="return confirm('Deseas borrar este video?');"
                     class="btn btn-danger"
-                >Borrar
+                    >Borrar
+                    <i class="fa fa-trash"></i>
                 </button>
                 </form>
 

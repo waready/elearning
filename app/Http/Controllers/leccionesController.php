@@ -43,10 +43,10 @@ class leccionesController extends Controller
     {
         
         $validatedData = [
-            'Name' => 'required|string|max:150',
-            'Cotenido' => 'required|string|max:150',
-            'Video' => 'required|string|max:150',
-            'Curso' => 'required'
+            'name' => 'required|string|max:150',
+            'conten' => 'required|string|max:250',
+            'video' => 'required',
+            'course_id' => 'required'
         ];
         $Mensaje = ["required"=>'El :attribute es requerido'];
         $this->validate($request,$validatedData,$Mensaje);

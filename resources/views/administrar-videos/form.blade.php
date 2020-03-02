@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <div class="card-header">{{ __('Subir Video') }}</div>
+            <div class="card-header">{{ $Modo=='crear' ? 'Subir Nuevo Video':'Editar Video' }}</div>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name" class="control-label">{{'Name'}}</label>
@@ -20,15 +20,15 @@
                     <div class="form-group">
                         <label for="video" class="control-label">{{'Video'}}</label>
                         @if(isset($video->video))
-                        <br>
-                        <div class="mx-auto" style="width: 200px;">
-                        <video width="250" controls class="mx-auto">
-                            <source src="{{asset('storage').'/'.$video->video}}" type="video/mp4">
-                            <source src="{{$video->video}}" type="video/ogg">
-                            Your browser does not support HTML5 video.
-                        </video>
-                        </div>
                         
+                        <br>
+                        <div class="mx-auto" style="width: 230px;">
+                            <video width="250" controls>
+                                <source src="{{asset('storage').'/'.$video->video}}" type="video/mp4">
+                                <source src="{{$video->video}}" type="video/ogg">
+                                Your browser does not support HTML5 video.
+                            </video>
+                        </div>
                         <br>
                         @endif
                         <input name="video" id="video" type="file" class="form-control">
@@ -46,17 +46,18 @@
                         
                     </div>
 
+                    <div class="mx-auto" style="width: 236px;">
                     <input type="submit" value="{{ $Modo=='crear' ? 'Agregar':'Modificar' }}" class="btn btn-success btn-lg ">
-
-                    
+                   
                         <a
                         href="{{url('videos/administrar')}}"
                         class="btn btn-primary btn-lg "
                         >
-                        Regresar&nbsp;<i class="fa fa-upload"></i>
+                        Regresar&nbsp;
                         </a> 
                     
                     <br>
+                    </div>
                 </div>
             </div>
         </div>    
